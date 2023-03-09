@@ -1,0 +1,26 @@
+.wrapper {
+   width: 240px;
+   height: 447px;
+   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23C4C4C4FF' stroke-width='4' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+   border-radius: 6px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 5px;
+}
+
+.span {
+  margin: 0;
+  font: 14px/17px 'Inter', 'Arial', sans-serif;
+  font-weight: 500;
+  color: #5D5FEF;
+}
+
+.text {
+  max-width: 100px;
+  margin: 0;
+  font: 12px/14px 'Inter', 'Arial', sans-serif;
+  font-weight: 400;
+  color: #6B7280;
+}

@@ -1,0 +1,13 @@
+.wrapper {
+   display: flex;
+   flex-wrap: wrap;
+   box-sizing: border-box;
+   max-width: 240px;
+   padding: 4px;
+   box-shadow: 0 4px 6px rgb(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+   gap: 8px;
+}
+
+.wrapper_disabled {
+   opacity: .3;
+}

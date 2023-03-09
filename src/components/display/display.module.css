@@ -1,0 +1,11 @@
+.screen {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 4px;
+  width: 232px;
+  height: 52px;
+  background: #F3F4F6;
+  font: 36px/44px 'Inter', 'Arial', sans-serif;
+  font-weight: 800;
+  text-align: end;
+}
