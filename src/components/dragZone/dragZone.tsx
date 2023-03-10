@@ -1,10 +1,12 @@
 import { FC } from 'react'
 import { useDrop } from 'react-dnd'
+import { useAppSelector } from '../../hooks/redux'
 import IDragZone from '../../interfaces/IDragZone'
 import Calculator from '../calculator/calculator'
 import styles from './dragZone.module.css'
 
-const DragZone: FC<IDragZone> = ({ onDropHandler, dragEl }) => {
+const DragZone: FC<IDragZone> = ({ onDropHandler }) => {
+   const { arr } = useAppSelector((state) => state.dragArrReducer)
    const [{ isHover }, dropTarget] = useDrop({
       accept: 'keyboard',
       drop({ id }: { id: number }) {
@@ -21,8 +23,8 @@ const DragZone: FC<IDragZone> = ({ onDropHandler, dragEl }) => {
          className={styles.wrapper}
          style={{ backgroundColor }}
       >
-         {dragEl.length ? (
-            <Calculator arr={dragEl} />
+         {arr.length ? (
+            <Calculator arr={arr} />
          ) : (
             <>
                <div className={styles.icon}>

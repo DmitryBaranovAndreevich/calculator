@@ -5,6 +5,7 @@ interface IKeyboard {
    id: number
    disabled: boolean
    noActive?: boolean
+   type: string
 }
 
 export default IKeyboard;

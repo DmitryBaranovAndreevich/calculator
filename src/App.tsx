@@ -3,73 +3,83 @@ import Calculator from './components/calculator/calculator'
 import DragZone from './components/dragZone/dragZone'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import {
-   bottomKeyboard,
-   mainKeyboard,
-   topKeyboard,
-} from './service/buttonsValue'
-import { useState } from 'react'
-
-const initArr = [
-   { type: 'screen', value: 0, disabled: false, id: 123, noActive: false },
-   {
-      type: 'top',
-      value: topKeyboard,
-      disabled: false,
-      id: 124,
-      noActive: false,
-   },
-   {
-      type: 'middle',
-      value: mainKeyboard,
-      disabled: false,
-      id: 125,
-      noActive: false,
-   },
-   {
-      type: 'bottom',
-      value: bottomKeyboard,
-      disabled: false,
-      id: 126,
-      noActive: false,
-   },
-]
+import { useAppDispatch, useAppSelector } from './hooks/redux'
+import { runtimeButtonSlice } from './store/reducers/RunTimeButtonSlice'
+import { constructorButtonSlice } from './store/reducers/ConstructorButtonSlice'
+import { draggetArrSlice } from './store/reducers/DraggetArrSlice'
+import { constructorArrSlice } from './store/reducers/ConstructorArrSlice'
+import { calcSlice } from './store/reducers/CalculaterSlice'
+import { useEffect } from 'react'
 
 function App() {
-   const [arr, setArr] = useState(initArr)
-   const [draggedEl, setDraggedEl] = useState<
-      | Array<{
-           type: string
-           value: number | string[]
-           disabled: boolean
-           noActive: boolean
-           id: number
-        }>
-      | []
-   >([])
-   function handleDrop(itemId: number) {
-      const arrCopy = JSON.parse(JSON.stringify(arr))
-      const changeEl = arrCopy[itemId]
-      changeEl.disabled = true
-      setArr(arrCopy)
-      const priv = { ...arr[itemId], noActive: true }
-      setDraggedEl([
-         ...draggedEl,
-         priv as {
-            type: string
-            value: number | string[]
-            disabled: boolean
-            noActive: boolean
-            id: number
-         },
-      ])
+   const { setInitValue } = calcSlice.actions
+   const { toggleRunTime } = runtimeButtonSlice.actions
+   const { toggleConstructor } = constructorButtonSlice.actions
+   const { setDraggetArr } = draggetArrSlice.actions
+   const { setDisabled, setElemDisabled, setEnabled } =
+      constructorArrSlice.actions
+   const dispatch = useAppDispatch()
+   const {
+      runTimeReducer,
+      constructorReducer,
+      dragArrReducer,
+      constructorArrReducer,
+   } = useAppSelector((state) => state)
+
+   function buttonSwitch() {
+      dispatch(toggleConstructor())
+      dispatch(toggleRunTime())
+      dispatch(setInitValue())
    }
+
+   function handleDrop(itemId: number) {
+      dispatch(setElemDisabled(itemId))
+      dispatch(setDraggetArr(constructorArrReducer.arr[itemId]))
+   }
+
+   function handleRuntimeClick() {
+      buttonSwitch()
+      dispatch(setDisabled())
+   }
+   function handleConstructorClick() {
+      buttonSwitch()
+      // dispatch(setEnabled(dragArrReducer.arr))
+   }
+
    return (
-      <div className={styles.wrapper}>
-         <DndProvider backend={HTML5Backend}>
-            <Calculator arr={arr} />
-            <DragZone onDropHandler={handleDrop} dragEl={draggedEl} />
-         </DndProvider>
+      <div className={styles.container}>
+         <div className={styles.buttonContainer}>
+            <div className={styles.buttonWrapper}>
+               <button
+                  onClick={handleRuntimeClick}
+                  className={`${styles.switchButton} ${
+                     styles.switchButton_position_left
+                  } ${
+                     runTimeReducer.valueRunTimeButton &&
+                     styles.switchButton_active
+                  }`}
+               >
+                  Runtime
+               </button>
+               <button
+                  onClick={handleConstructorClick}
+                  className={`${styles.switchButton} ${
+                     styles.switchButton_position_right
+                  }  ${
+                     constructorReducer.valueConstructorButton &&
+                     styles.switchButton_active
+                  }`}
+               >
+                  Constructor
+               </button>
+            </div>
+         </div>
+         <div className={styles.wrapper}>
+            <DndProvider backend={HTML5Backend}>
+               <Calculator arr={constructorArrReducer.arr} />
+               <DragZone onDropHandler={handleDrop} />
+            </DndProvider>
+         </div>
       </div>
    )
 }

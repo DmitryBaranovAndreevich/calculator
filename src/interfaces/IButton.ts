@@ -1,8 +1,7 @@
-import { ReactNode } from 'react'
 import Size from './ISize'
 
 interface IButton {
-   children: ReactNode
+   children: string
    size: Size.little | Size.small | Size.middle | Size.big
    disabled: boolean
 }

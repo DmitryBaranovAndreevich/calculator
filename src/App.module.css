@@ -1,7 +1,62 @@
 .wrapper {
-  height: 100vh;
    display: flex;
    gap: 60px;
    justify-content: center;
    align-items: center;
+}
+
+.container {
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.buttonContainer {
+   display: flex;
+   justify-content: flex-end;
+   max-width: 500px;
+   width: 100%;
+   margin-bottom: 30px;
+   text-align: end;
+}
+
+.buttonWrapper {
+   padding: 2px;
+   background: #f3f4f6;
+   display: flex;
+   border-radius: 5px;
+}
+
+.switchButton {
+   width: 140px;
+   display: flex;
+   align-items: center;
+   padding: 12px;
+   border: none;
+   border-radius: 5px;
+   font: 14px/15px 'Inter', 'Arial', sans-serif;
+   font-weight: 500;
+   color: #000000;
+   gap: 12px;
+   cursor: pointer;
+}
+
+.switchButton_position_left:before {
+   content: '';
+   background: url('./images/eye.svg') no-repeat center/cover;
+   width: 16px;
+   height: 12px;
+}
+
+.switchButton_position_right:before {
+   content: '';
+   background: url('./images/selector.svg') no-repeat center/cover;
+   width: 26px;
+   height: 12px;
+}
+
+.switchButton_active {
+   background: #ffffff;
 }

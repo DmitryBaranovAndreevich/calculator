@@ -18,6 +18,7 @@ const Calculator: FC<ICalculator> = ({ arr }) => {
                      id={index}
                      disabled={disabled}
                      noActive={noActive as boolean}
+                     type={type}
                   />
                )
             } else {
@@ -27,6 +28,7 @@ const Calculator: FC<ICalculator> = ({ arr }) => {
                      id={index}
                      disabled={disabled}
                      noActive={noActive as boolean}
+                     type={type}
                   >
                      {(value as Array<string>).map((el) => (
                         <Button
