@@ -11,6 +11,11 @@
    border-radius: 6px;
 }
 
+.button:active {
+    /* margin: 1px 1px 0; */
+    box-shadow: -1px -1px 1px #000;
+}
+
 .button_little {
    width: 52px;
    height: 48px;

@@ -9,28 +9,23 @@ import { constructorButtonSlice } from './store/reducers/ConstructorButtonSlice'
 import { draggetArrSlice } from './store/reducers/DraggetArrSlice'
 import { constructorArrSlice } from './store/reducers/ConstructorArrSlice'
 import { calcSlice } from './store/reducers/CalculaterSlice'
-import { useEffect } from 'react'
 
 function App() {
    const { setInitValue } = calcSlice.actions
-   const { toggleRunTime } = runtimeButtonSlice.actions
-   const { toggleConstructor } = constructorButtonSlice.actions
+   const { setTrue: setRunTimeActiv, setFalse: setRunTimeInActiv } =
+      runtimeButtonSlice.actions
+   const { setTrue: setConstructorActiv, setFalse: setConstructorInActiv } =
+      constructorButtonSlice.actions
    const { setDraggetArr } = draggetArrSlice.actions
-   const { setDisabled, setElemDisabled, setEnabled } =
-      constructorArrSlice.actions
+   const { setDisabled, setElemDisabled } = constructorArrSlice.actions
+   const { setEnabled } = constructorArrSlice.actions
    const dispatch = useAppDispatch()
    const {
       runTimeReducer,
       constructorReducer,
-      dragArrReducer,
       constructorArrReducer,
+      dragArrReducer,
    } = useAppSelector((state) => state)
-
-   function buttonSwitch() {
-      dispatch(toggleConstructor())
-      dispatch(toggleRunTime())
-      dispatch(setInitValue())
-   }
 
    function handleDrop(itemId: number) {
       dispatch(setElemDisabled(itemId))
@@ -38,12 +33,16 @@ function App() {
    }
 
    function handleRuntimeClick() {
-      buttonSwitch()
+      dispatch(setRunTimeActiv())
+      dispatch(setConstructorInActiv())
       dispatch(setDisabled())
+      dispatch(setInitValue())
    }
    function handleConstructorClick() {
-      buttonSwitch()
-      // dispatch(setEnabled(dragArrReducer.arr))
+      dispatch(setConstructorActiv())
+      dispatch(setRunTimeInActiv())
+      dispatch(setEnabled(dragArrReducer.arr))
+      dispatch(setInitValue())
    }
 
    return (

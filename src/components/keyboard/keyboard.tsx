@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { useDrag } from 'react-dnd'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import IKeyboard from '../../interfaces/IKeyboard'
@@ -7,18 +7,22 @@ import { draggetArrSlice } from '../../store/reducers/DraggetArrSlice'
 import styles from './keyboard.module.css'
 
 const Keybord: FC<IKeyboard> = ({ children, id, disabled, noActive, type }) => {
+   const { valueConstructorButton } = useAppSelector(
+      (state) => state.constructorReducer,
+   )
    const { removeEl } = draggetArrSlice.actions
    const { setElemEnabled } = constructorArrSlice.actions
    const dispatch = useAppDispatch()
-   const { arr } = useAppSelector((state) => state.dragArrReducer)
    const [, dragRef] = useDrag({
       type: 'keyboard',
       item: { id },
    })
 
    const remove = () => {
-      dispatch(removeEl(id))
-      dispatch(setElemEnabled(type))
+      if (valueConstructorButton) {
+         dispatch(removeEl(id))
+         dispatch(setElemEnabled(type))
+      }
    }
    return (
       <div
